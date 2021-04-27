@@ -1,30 +1,73 @@
-<%= form_with model: @group, url: new_group_session_path,class: 'registration-main', local: true do |f| %>
-<div class='form-wrap'>
-  <div class='form-header'>
-    <h1 class='form-header-text'>
-      会員情報入力
-    </h1>
-  </div>
-  <div class='login-flash-message'>
-    <%= flash[:notice] %>
-    <%= flash[:alert] %>
-  </div>
-  <div class="form-group">
-    <div class='form-text-wrap'>
-      <label class="form-text">メールアドレス</label>
-      <span class="indispensable">必須</span>
+<section class="hero is-info">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        新規登録画面
+      </h1>
     </div>
-    <%= f.email_field :email, class:"input-default", id:"email", placeholder:"PC・携帯どちらでも可", autofocus: true %>
   </div>
-  <div class="form-group">
-    <div class='form-text-wrap'>
-      <label class="form-text">パスワード</label>
-      <span class="indispensable">必須</span>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-5">
+        <%= form_for(resource, as: resource_name, url: new_group_registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="field">
+            <%= f.label :group_name ,class: "label"%>
+            <p class="control has-icon-left">
+              <%= f.text_field :group_name, autofocus: true, autocomplete: "group_name", :placeholder => "団体名", class: "input" %>
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </p>
+          </div>
+
+
+
+          <div class="field">
+            <%= f.label :email ,class: "label"%>
+            <p class="control has-icon-left">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "email", class: "input" %>
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelop"></i>
+              </span>
+            </p>
+          </div>
+
+
+          <div class="field">
+            <%= f.label :password ,class: "label"%>
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+              <p class="control has-icon-left">
+              <%= f.password_field :password, autocomplete: "new-password", placeholder: "password", class: "input" %>
+                <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+                </span>
+              </p>
+          </div>
+
+          <div class="field">
+            <%= f.label :password_confirmation ,class: "label"%>
+            <p class="control has-icon-left">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password" , placeholder: "password confirmation" , class: "input"%>
+              <span class="icon is-small">
+                <i class="far fa-lock"></i>
+              </span>
+            </p>            
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Sign up",class: "button is-success" %>
+          </div>
+          <% end %>
+
+        <%= render "devise/shared/links" %>
+      </div>
     </div>
-    <%= f.password_field :password, class:"input-default", id:"password", placeholder:"" %>
   </div>
-  <div class='login-btn'>
-    <%= f.submit "ログイン" ,class:"login-red-btn" %>
-  </div>
-</div>
-<% end %>
+</section>
